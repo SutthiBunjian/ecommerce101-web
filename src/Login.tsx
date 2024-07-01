@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { dummyUser } from "./data/Users";
 
 
 function Login() {
@@ -10,13 +11,15 @@ function Login() {
 
     function handleLogin(e:React.FormEvent<HTMLFormElement>){
         e.preventDefault();
-        if(username ==='admin' && password ==='12345'){
-            setIsLoggedIn(true);
-            navigate('/home')
-        }else{
-            alert('Invalid username or password')
-        }
+
+        const foundUser = dummyUser.find(user => user.email.toLowerCase() === username.toLowerCase() && user.password === password);
         
+        if (foundUser) {
+            setIsLoggedIn(true);
+            navigate('/home');
+        } else {
+            alert('Invalid username or password');
+        }
     }
     if (isLoggedIn){
         console.log("LoggedIn")
@@ -29,11 +32,11 @@ function Login() {
         <div className="flex items-center justify-center h-screen">
             <div className="">
                 <div className="box-content bg-gray-800 h-80 w-96 p-8 border-4 border-gray-500 rounded-lg shadow-lg" >
-                    <h1 className="text-4xl font-bold text-center text-white">Login</h1>
+                    <h1 className="text-4xl font-bold text-center text-white">Sign In</h1>
                     
                     <form onSubmit={handleLogin}>
                         <div className="mt-6">
-                            <label className="text-white text-sm">Please Log in to your account </label></div>
+                            <label className="text-white text-sm">Please Sign in to your account </label></div>
                     
                         <div className="relative my-4">
                         
@@ -41,7 +44,7 @@ function Login() {
                                 className="block w-96 py-2.5 px-2 text-sm
                                  text-white rounded-xl bg-gray-700
                                  border-gray-300 " 
-                                placeholder=" Username"
+                                placeholder=" Email"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)} 
                                 required
@@ -61,6 +64,11 @@ function Login() {
                         </div>
                         <div className=" ">
                         <button className="bg-blue-400 py-2.5 rounded-2xl w-96 mt-12 " type ="submit">LogIn</button>
+                        </div>
+
+                        <div className="mt-2 text-center">
+                        <label className="text-white text-sm ">Have not registered? </label>
+                        <a href="#"  onClick={()=>navigate('/signup')} className="text-blue-600 hover:text-purple-400">Sign up</a>
                         </div>
                     </form>
 
