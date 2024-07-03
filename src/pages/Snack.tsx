@@ -1,11 +1,11 @@
-import ClearButton from "./component/ClearButton";
-import JuiceItem from "./component/JuiceItem";
-import PageTab from "./component/PageTab";
-import SearchBar from "./component/Searchbar";
-import SubmitButton from "./component/SubmitButton";
-import useTodo from "./hooks/useTodos";
+import ClearButton from "../component/ClearButton";
+import PageTab from "../component/PageTab";
+import SearchBar from "../component/Searchbar";
+import SnackItem from "../component/SnackItem";
+import SubmitButton from "../component/SubmitButton";
+import useTodo from "../hooks/useTodos";
 
-export default function Juice(){
+export default function Snack(){
     const {
         handleSelectedChange,
         saveSelectedItem,
@@ -17,7 +17,7 @@ export default function Juice(){
         <div>
             <PageTab/>
             <SearchBar onSearch={handleSearch}/>
-            <JuiceItem onSelectedChange={handleSelectedChange}/>
+            <SnackItem onSelectedChange={handleSelectedChange}/>
             <div className="mx-auto w-full max-w-screen-lg">
             <SubmitButton onClick={saveSelectedItem}/>
             <ClearButton onClick={deleteItems}/>

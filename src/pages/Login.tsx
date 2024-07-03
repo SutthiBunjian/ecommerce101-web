@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { dummyUser } from "./data/Users";
+import { dummyUser } from "../data/Users";
 
 
 function Login() {

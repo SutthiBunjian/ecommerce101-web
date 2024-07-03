@@ -2,8 +2,18 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: {
+      primary: "Poppins",
+    },
+    container: {
+      padding: {
+        DEFAULT: "30px",
+        lg: "0",
+      },
+    },
+
     extend: {
-      backgroundImage: { background: "url('/src/Photo/background.jpg')" },
+      backgroundImage: { background: "url('/src/img/background.jpg')" },
     },
   },
   plugins: [],

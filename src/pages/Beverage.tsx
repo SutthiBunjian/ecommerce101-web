@@ -1,9 +1,9 @@
-import BeverageItem from "./component/BeverageItem";
-import ClearButton from "./component/ClearButton";
-import PageTab from "./component/PageTab";
-import SearchBar from "./component/Searchbar";
-import SubmitButton from "./component/SubmitButton";
-import useTodo from "./hooks/useTodos";
+import BeverageItem from "../component/BeverageItem";
+import ClearButton from "../component/ClearButton";
+import PageTab from "../component/PageTab";
+import SearchBar from "../component/Searchbar";
+import SubmitButton from "../component/SubmitButton";
+import useTodo from "../hooks/useTodos";
 
 export default function Beverage(){
     const {

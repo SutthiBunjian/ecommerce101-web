@@ -1,10 +1,17 @@
-import Home from "./Home"
-import Login from "./Login"
+import OrderHome from "./pages/OrderHome"
+import Login from "./pages/Login"
 import { BrowserRouter,Route,Routes } from "react-router-dom"
-import Beverage from "./Beverage"
-import Snack from "./Snack"
-import Juice from "./Juice"
-import SignUp from "./SignUp";
+import Beverage from "./pages/Beverage"
+import Snack from "./pages/Snack"
+import Juice from "./pages/Juice"
+import SignUp from "./pages/SignUp"
+
+import Home from "./pages/Home"
+import ProductDetails from "./pages/ProductDetails"
+import Sidebar from "./component/Sidebar"
+import Header from "./component/Header"
+import Footer from "./component/Footer"
+
 
 
 function App() {
@@ -13,16 +20,18 @@ function App() {
   return (
    
   <BrowserRouter>
-   
-    <Routes>
-      <Route path="/" element={<Login/>}/>
-      <Route path="/signup" element={<SignUp/>}/>
-      <Route path="/home" element={<Home/>}/>
-      <Route path="/beverage" element={<Beverage/>}/>
-      <Route path="/snack" element={<Snack/>}/>
-      <Route path="/juice" element={<Juice/>}/>
-    </Routes>
-    
+    <Header/>
+        <Routes>
+          <Route path="/" element={<Login/>}/>
+          <Route path="/signup" element={<SignUp/>}/>
+          <Route path="/home" element={<Home/>}/>
+          <Route path="/home" element={<OrderHome/>}/>
+          <Route path="/beverage" element={<Beverage/>}/>
+          <Route path="/snack" element={<Snack/>}/>
+          <Route path="/juice" element={<Juice/>}/>
+        </Routes>
+    <Sidebar/>
+    <Footer/>
   </BrowserRouter>
   )
 }

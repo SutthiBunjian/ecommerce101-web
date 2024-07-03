@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import SignUpUser from "./component/SignUpUser";
+import SignUpUser from "../component/SignUpUser";
 import React from "react";
 import { useState } from "react";
 
