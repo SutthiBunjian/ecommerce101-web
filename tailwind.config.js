@@ -13,7 +13,10 @@ export default {
     },
 
     extend: {
-      backgroundImage: { background: "url('/src/img/background.jpg')" },
+      backgroundImage: {
+        background: "url('/src/img/background.jpg')",
+        hero: "url('/src/img/bg_hero.svg')",
+      },
     },
   },
   plugins: [],
