@@ -8,7 +8,7 @@ export const dummyUser: User[] = [
     dateOfBirth: "1999-09-21",
     password: "SAS1222",
     address: "Begonia",
-    UID: "1",
+    uid: "1",
   },
   {
     firstName: "Phat",
@@ -17,7 +17,7 @@ export const dummyUser: User[] = [
     dateOfBirth: "2000-02-19",
     password: "kirby",
     address: "Begonia house",
-    UID: "2",
+    uid: "2",
   },
   {
     firstName: "Admin",
@@ -26,6 +26,6 @@ export const dummyUser: User[] = [
     dateOfBirth: "1999-09-21",
     password: "12345",
     address: "Admin",
-    UID: "0",
+    uid: "0",
   },
 ];

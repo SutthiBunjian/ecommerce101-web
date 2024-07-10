@@ -5,5 +5,5 @@ export interface User {
   dateOfBirth: string;
   password: string;
   address: string;
-  UID: string;
+  uid: string;
 }

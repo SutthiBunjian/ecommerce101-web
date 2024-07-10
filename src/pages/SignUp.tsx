@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import SignUpUser from "../component/SignUpUser";
 import React from "react";
 import { useState } from "react";
+import axios from "axios";
+import { basePath } from "../utils/common";
+import { v4 as uuidv4 } from "uuid";
 
 function SignUp() {
   const inputStyle =
@@ -16,6 +18,28 @@ function SignUp() {
   const [confirmpassword, setConfirmPassword] = useState("");
   const [address, setAddress] = useState("");
 
+  const sendData = () => {
+    axios
+      .post(basePath + "register", {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        dateOfBirth: dateOfBirth,
+        password: password,
+        address: address,
+        uid: uuidv4(),
+      })
+      .then((res) => {
+        console.log(res.data);
+        alert("Successfully signup");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Signup failed:", error);
+        alert("Signup error");
+      });
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -25,9 +49,8 @@ function SignUp() {
       setConfirmPassword("");
       return;
     }
-    SignUpUser(firstName, lastName, email, dateOfBirth, password, address);
-    alert("Successfully Sign-Up");
-    navigate("/");
+
+    sendData();
   };
 
   return (

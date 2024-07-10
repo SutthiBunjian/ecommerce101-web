@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { dummyUser } from "../data/Users";
 import { UserContext } from "../contexts/UserContext";
+import axios from "axios";
+import { basePath } from "../utils/common";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -16,27 +17,33 @@ function Login() {
   }
   const { isLoggedIn, setIsLoggedIn } = userContext;
 
+  const sendData = () => {
+    axios
+      .post(basePath + "login", {
+        username: username,
+        password: password,
+      })
+      .then((res) => {
+        console.log("THIS IS WORKING", res.data);
+        setIsLoggedIn(true);
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.error("Login failed:", error);
+        alert("Invalid username or password");
+      });
+
+    if (isLoggedIn) {
+      console.log("LoggedIn");
+
+      return null;
+    }
+  };
+
   function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const foundUser = dummyUser.find(
-      (user) =>
-        user.email.toLowerCase() === username.toLowerCase() &&
-        user.password === password
-    );
-
-    if (foundUser) {
-      setIsLoggedIn(true);
-      navigate("/home");
-    } else {
-      alert("Invalid username or password");
-      console.log(username, password);
-    }
-  }
-  if (isLoggedIn) {
-    console.log("LoggedIn");
-
-    return null;
+    sendData();
   }
 
   return (
