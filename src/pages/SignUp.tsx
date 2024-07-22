@@ -31,6 +31,7 @@ function SignUp() {
       })
       .then((res) => {
         console.log(res.data);
+        localStorage.setItem("userInfo", JSON.stringify(res.data));
         alert("Successfully signup");
         navigate("/");
       })
