@@ -11,7 +11,7 @@ export interface CartContextProps {
   decreaseAmount: (id: number) => void;
   itemAmount: number;
   total: number;
-  submitCart: () => void;
+  submitCart: (ordernumber: number) => void;
 }
 interface CartProviderProps {
   children: ReactNode;
@@ -106,9 +106,9 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     }
   };
 
-  const submitCart = () => {
+  const submitCart = (ordernumber: number) => {
     console.log(cart);
-    alert("Your order has been submitted");
+    alert(`Your order has been submitted. Your ordernumber is ${ordernumber}`);
   };
 
   const contextValue: CartContextProps = {

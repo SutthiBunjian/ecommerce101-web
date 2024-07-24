@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import axios from "axios";
-import { basePath } from "../utils/common";
+import { userBasePath } from "../utils/common";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -27,7 +27,7 @@ function Login() {
 
   const sendData = () => {
     axios
-      .post(basePath + "login", {
+      .post(userBasePath + "login", {
         username: username,
         password: password,
       })

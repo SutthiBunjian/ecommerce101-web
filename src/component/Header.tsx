@@ -5,6 +5,19 @@ import { CartContext } from "../contexts/CartContext";
 import { Link } from "react-router-dom";
 import Logo from "../img/logo.svg";
 
+const isLoggedIn = localStorage.getItem("isLoggedIn");
+const userInfo = localStorage.getItem("userInfo");
+let firstname = "";
+
+if (userInfo) {
+  try {
+    const parsedInfo = JSON.parse(userInfo);
+    firstname = parsedInfo.firstName || "";
+  } catch (error) {
+    console.error("Error parsing user info:", error);
+  }
+}
+
 const Header = () => {
   const [isActive, setIsActive] = useState(true);
 
@@ -42,6 +55,7 @@ const Header = () => {
         </Link>
 
         <div onClick={toggleSidebar} className="cursor-pointer flex relative">
+          {isLoggedIn && <h1 className="me-2">Hi,{firstname}</h1>}
           <BsBag className="text-2xl" />
           <div
             className="bg-red-500 absolute -right-2 -bottom-2 

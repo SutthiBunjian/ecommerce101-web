@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
-import { basePath } from "../utils/common";
+import { userBasePath } from "../utils/common";
 import { v4 as uuidv4 } from "uuid";
 
 function SignUp() {
@@ -20,7 +20,7 @@ function SignUp() {
 
   const sendData = () => {
     axios
-      .post(basePath + "register", {
+      .post(userBasePath + "register", {
         firstName: firstName,
         lastName: lastName,
         email: email,
@@ -31,7 +31,7 @@ function SignUp() {
       })
       .then((res) => {
         console.log(res.data);
-        localStorage.setItem("userInfo", JSON.stringify(res.data));
+        localStorage.setItem("RegisteruserInfo", JSON.stringify(res.data));
         alert("Successfully signup");
         navigate("/");
       })

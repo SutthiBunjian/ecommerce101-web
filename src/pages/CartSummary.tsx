@@ -3,6 +3,21 @@ import { useContext, useState } from "react";
 import CartItem from "../component/CartItem";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { orderBasePath } from "../utils/common";
+import { Order } from "../types/Order";
+import { v4 as uuidv4 } from "uuid";
+
+const sendData = (orderdata: Order) => {
+  axios
+    .post(orderBasePath + "insertorder", orderdata)
+    .then((res) => {
+      console.log("SUCCESS", res);
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+};
 
 const CartSummary = () => {
   const cartContext = useContext(CartContext);
@@ -16,14 +31,34 @@ const CartSummary = () => {
   const [showLoginMessage, setShowLoginMessage] = useState(false);
 
   const { cart, clearCart, total, itemAmount, submitCart } = cartContext;
-  const { isLoggedIn } = userContext;
 
   const handleSubmitOrder = () => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+
     if (isLoggedIn) {
-      submitCart();
+      const orderData: Order = {
+        orderid: uuidv4(),
+        ordernumber: generateOrderNumber(),
+        products: cart.map((item) => ({
+          id: item.id,
+          title: item.title,
+          price: item.price,
+          description: item.description,
+          category: item.category,
+          image: item.image,
+          rating: item.rating,
+          quantity: item.amount,
+        })),
+      };
+
+      sendData(orderData);
+      console.log(orderData);
+
+      submitCart(orderData.ordernumber);
+      localStorage.setItem("OrderInfo", JSON.stringify(orderData));
     } else {
       setShowLoginMessage(true);
-      alert("Not Loggin in");
+      alert("Not Loggedin");
     }
   };
 
@@ -83,6 +118,10 @@ const CartSummary = () => {
       </div>
     </div>
   );
+};
+
+const generateOrderNumber = () => {
+  return Date.now();
 };
 
 export default CartSummary;
