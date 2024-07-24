@@ -17,6 +17,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
+
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
@@ -28,6 +29,7 @@ function App() {
         <Route path="/Cart" element={<CartSummary />} />
         <Route path="/product/:id" element={<ProductDetails />} />
       </Routes>
+
       <Sidebar />
       <Footer />
     </BrowserRouter>

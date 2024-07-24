@@ -7,6 +7,7 @@ import axios from "axios";
 import { orderBasePath } from "../utils/common";
 import { Order } from "../types/Order";
 import { v4 as uuidv4 } from "uuid";
+import OrderSummaryPopUp from "../component/OrderSummaryPopUp";
 
 const sendData = (orderdata: Order) => {
   axios
@@ -23,11 +24,14 @@ const CartSummary = () => {
   const cartContext = useContext(CartContext);
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
+  const [showMyModal, setShowMyModal] = useState(false);
+  const [orderNumber, setOrderNumber] = useState(0);
 
   if (!cartContext || !userContext) {
     throw new Error("Context is undefined.");
   }
 
+  const handleModalClose = () => setShowMyModal(false);
   const [showLoginMessage, setShowLoginMessage] = useState(false);
 
   const { cart, clearCart, total, itemAmount, submitCart } = cartContext;
@@ -56,6 +60,8 @@ const CartSummary = () => {
 
       submitCart(orderData.ordernumber);
       localStorage.setItem("OrderInfo", JSON.stringify(orderData));
+      setOrderNumber(orderData.ordernumber);
+      setShowMyModal(true);
     } else {
       setShowLoginMessage(true);
       alert("Not Loggedin");
@@ -116,6 +122,11 @@ const CartSummary = () => {
           </div>
         )}
       </div>
+      <OrderSummaryPopUp
+        ordernumber={orderNumber}
+        onClose={handleModalClose}
+        visible={showMyModal}
+      />
     </div>
   );
 };

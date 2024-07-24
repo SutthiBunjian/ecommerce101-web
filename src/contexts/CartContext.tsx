@@ -43,6 +43,7 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       setItemAmount(amount);
     }
   }, [cart]);
+
   const addToCart = (product: Product, id: number) => {
     const newItem = { ...product, amount: 1 };
     setCart((prevCart) => [...prevCart, newItem]);
@@ -107,8 +108,7 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   };
 
   const submitCart = (ordernumber: number) => {
-    console.log(cart);
-    alert(`Your order has been submitted. Your ordernumber is ${ordernumber}`);
+    console.log(ordernumber);
   };
 
   const contextValue: CartContextProps = {

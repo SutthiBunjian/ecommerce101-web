@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { IoMdArrowForward } from "react-icons/io";
@@ -8,7 +8,27 @@ import CartItem from "./CartItem";
 import { SidebarContext } from "../contexts/SidebarContext";
 import { CartContext } from "../contexts/CartContext";
 
+import { Order } from "../types/Order";
+import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
+import { orderBasePath } from "../utils/common";
+import OrderSummaryPopUp from "../component/OrderSummaryPopUp";
+
+const sendData = (orderdata: Order) => {
+  axios
+    .post(orderBasePath + "insertorder", orderdata)
+    .then((res) => {
+      console.log("SUCCESS", res);
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+};
+
 const Sidebar = () => {
+  const [showMyModal, setShowMyModal] = useState(false);
+  const [orderNumber, setOrderNumber] = useState(0);
+
   const sidebarContext = useContext(SidebarContext);
   const cartContext = useContext(CartContext);
 
@@ -23,6 +43,42 @@ const Sidebar = () => {
   const { isOpen, handleClose } = sidebarContext;
   const { cart, clearCart, total, itemAmount, submitCart } = cartContext;
 
+  const handleModalClose = () => setShowMyModal(false);
+
+  const handleSubmitOrder = () => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+    if (isLoggedIn) {
+      const orderData: Order = {
+        orderid: uuidv4(),
+        ordernumber: generateOrderNumber(),
+        products: cart.map((item) => ({
+          id: item.id,
+          title: item.title,
+          price: item.price,
+          description: item.description,
+          category: item.category,
+          image: item.image,
+          rating: item.rating,
+          quantity: item.amount,
+        })),
+      };
+
+      sendData(orderData);
+      console.log(orderData);
+
+      submitCart(orderData.ordernumber);
+      localStorage.setItem("OrderInfo", JSON.stringify(orderData));
+      setOrderNumber(orderData.ordernumber);
+
+      setShowMyModal(true);
+    } else {
+      alert("Not Loggedin");
+    }
+  };
+  const generateOrderNumber = () => {
+    return Date.now();
+  };
   return (
     <div
       className={`${
@@ -43,7 +99,7 @@ const Sidebar = () => {
       <div className="flex-1 overflow-y-auto">
         <div className="flex flex-col gap-y-2">
           {cart.map((item) => {
-            return <CartItem item={item} key={item.id} />;
+            return <CartItem showControls={true} item={item} key={item.id} />;
           })}
         </div>
       </div>
@@ -67,13 +123,18 @@ const Sidebar = () => {
           View Cart
         </Link>
         <Link
-          onClick={submitCart}
+          onClick={handleSubmitOrder}
           to="/cart"
           className="bg-gray-200 flex p-4 justify-center items-center w-full font-medium"
         >
           Checkout
         </Link>
       </div>
+      <OrderSummaryPopUp
+        onClose={handleModalClose}
+        visible={showMyModal}
+        ordernumber={orderNumber}
+      />
     </div>
   );
 };
