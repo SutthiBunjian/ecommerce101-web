@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
-import { userBasePath } from "../utils/common";
+import config from "../config";
 import { v4 as uuidv4 } from "uuid";
 
 function SignUp() {
@@ -20,7 +20,7 @@ function SignUp() {
 
   const sendData = () => {
     axios
-      .post(userBasePath + "register", {
+      .post(`${config.api.baseUrl}/users/register`, {
         firstName: firstName,
         lastName: lastName,
         email: email,

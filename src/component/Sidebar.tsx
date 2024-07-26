@@ -11,12 +11,12 @@ import { CartContext } from "../contexts/CartContext";
 import { Order } from "../types/Order";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
-import { orderBasePath } from "../utils/common";
+import config from "../config";
 import OrderSummaryPopUp from "../component/OrderSummaryPopUp";
 
 const sendData = (orderdata: Order) => {
   axios
-    .post(orderBasePath + "insertorder", orderdata)
+    .post(`${config.api.baseUrl}/orders/insertorder`, orderdata)
     .then((res) => {
       console.log("SUCCESS", res);
     })
@@ -99,7 +99,7 @@ const Sidebar = () => {
       <div className="flex-1 overflow-y-auto">
         <div className="flex flex-col gap-y-2">
           {cart.map((item) => {
-            return <CartItem showControls={true} item={item} key={item.id} />;
+            return <CartItem item={item} key={item.id} />;
           })}
         </div>
       </div>

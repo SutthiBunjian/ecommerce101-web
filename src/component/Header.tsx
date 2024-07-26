@@ -1,25 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { SidebarContext } from "../contexts/SidebarContext";
 import { BsBag } from "react-icons/bs";
+import { AiOutlineUser } from "react-icons/ai";
 import { CartContext } from "../contexts/CartContext";
 import { Link } from "react-router-dom";
 import Logo from "../img/logo.svg";
+import ProfilePopup from "./ProfileDropDown";
 
-const isLoggedIn = localStorage.getItem("isLoggedIn");
-const userInfo = localStorage.getItem("userInfo");
-let firstname = "";
-
-if (userInfo) {
-  try {
-    const parsedInfo = JSON.parse(userInfo);
-    firstname = parsedInfo.firstName || "";
-  } catch (error) {
-    console.error("Error parsing user info:", error);
-  }
-}
-
-const Header = () => {
+const Header: React.FC = () => {
   const [isActive, setIsActive] = useState(true);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const sidebarContext = useContext(SidebarContext);
   const cartContext = useContext(CartContext);
@@ -36,11 +26,23 @@ const Header = () => {
     console.log("Sidebar state toggled:", isOpen);
   };
 
+  const toggleDropdown = () => {
+    setDropdownVisible((prevState) => !prevState);
+    console.log("Dropdown state toggled:", dropdownVisible);
+  };
+
   useEffect(() => {
-    window.addEventListener("scroll", () => {
+    const handleScroll = () => {
       window.scrollY > 60 ? setIsActive(true) : setIsActive(false);
-    });
-  });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <header
       className={`${
@@ -50,18 +52,28 @@ const Header = () => {
       <div className="container mx-auto flex items-center justify-between h-full">
         <Link to={`/home`}>
           <div>
-            <img className="w-[40px]" src={Logo} alt="" />
+            <img className="w-[40px]" src={Logo} alt="Logo" />
           </div>
         </Link>
 
-        <div onClick={toggleSidebar} className="cursor-pointer flex relative">
-          {isLoggedIn && <h1 className="me-2">Hi,{firstname}</h1>}
-          <BsBag className="text-2xl" />
-          <div
-            className="bg-red-500 absolute -right-2 -bottom-2 
-                      text-[12px] w-[18px] h-[18px] text-white rounded-full flex justify-center items-center"
-          >
-            {itemAmount}
+        <div className="flex items-center space-x-6">
+          <div onClick={toggleSidebar} className="cursor-pointer flex relative">
+            <BsBag className="text-2xl" />
+            <div
+              className="bg-red-500 absolute -right-2 -bottom-2 
+                        text-[12px] w-[18px] h-[18px] text-white rounded-full flex justify-center items-center"
+            >
+              {itemAmount}
+            </div>
+          </div>
+          <div className="relative">
+            <button
+              className="flex text-sm rounded-full md:me-0 hover:ring-4"
+              onClick={toggleDropdown}
+            >
+              <AiOutlineUser className="text-3xl" />
+            </button>
+            <ProfilePopup isVisible={dropdownVisible} />
           </div>
         </div>
       </div>

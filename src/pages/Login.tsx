@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import axios from "axios";
-import { userBasePath } from "../utils/common";
+import config from "../config";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -27,16 +27,20 @@ function Login() {
 
   const sendData = () => {
     axios
-      .post(userBasePath + "login", {
+      .post(`${config.api.baseUrl}/users/login`, {
         username: username,
         password: password,
       })
       .then((res) => {
         console.log("THIS IS WORKING", res.data);
         // setIsLoggedIn(true);
-        localStorage.setItem("userInfo", JSON.stringify(res.data.data));
-        localStorage.setItem("isLoggedIn", JSON.stringify(true));
-        navigate("/home");
+        if (res.data) {
+          localStorage.setItem("userInfo", JSON.stringify(res.data.data));
+          localStorage.setItem("isLoggedIn", JSON.stringify(true));
+          navigate("/home");
+        } else {
+          alert("Error login");
+        }
       })
       .catch((error) => {
         console.error("Login failed:", error);

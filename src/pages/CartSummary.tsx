@@ -4,14 +4,15 @@ import CartItem from "../component/CartItem";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { orderBasePath } from "../utils/common";
+
 import { Order } from "../types/Order";
 import { v4 as uuidv4 } from "uuid";
 import OrderSummaryPopUp from "../component/OrderSummaryPopUp";
+import config from "../config";
 
 const sendData = (orderdata: Order) => {
   axios
-    .post(orderBasePath + "insertorder", orderdata)
+    .post(`${config.api.baseUrl}/orders/insertorder`, orderdata)
     .then((res) => {
       console.log("SUCCESS", res);
     })
