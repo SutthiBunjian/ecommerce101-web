@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode, useEffect } from "react";
+import { createContext, useState, ReactNode, useEffect } from "react";
 import { User } from "../types/User";
 import { dummyUser as dummyUsers } from "../data/Users"; // Renamed to avoid conflict
 
