@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { GoSignOut, GoHome } from "react-icons/go";
+import { GoSignOut, GoHistory } from "react-icons/go";
 import { RiShoppingCart2Line } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 
@@ -17,11 +17,13 @@ const ProfilePopup: React.FC<ProfileDropdownProps> = ({ isVisible }) => {
   const userInfo = localStorage.getItem("userInfo");
 
   let firstname = "";
+  let userID = "";
 
   if (userInfo) {
     try {
       const parsedInfo = JSON.parse(userInfo);
       firstname = parsedInfo.firstName || "";
+      userID = parsedInfo.uid || "";
     } catch (error) {
       console.error("Error parsing user info:", error);
     }
@@ -49,19 +51,19 @@ const ProfilePopup: React.FC<ProfileDropdownProps> = ({ isVisible }) => {
         <div className="flex flex-col justify-center items-center pt-4 text-gray-700 border-b">
           <CgProfile className="text-4xl" />
           <div className="block text-center py-1 text-gray-700">
-            Hello, {firstname}
+            {firstname}
           </div>
         </div>
       )}
       <div className="py-1">
         <a
           onClick={() => {
-            navigate("/home");
+            navigate(`/orderhistory`);
           }}
           className="flex items-center  px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 cursor-pointer"
         >
-          <GoHome className="mr-2" />
-          Home
+          <GoHistory className="mr-2" />
+          Order History
         </a>
 
         <a

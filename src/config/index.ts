@@ -6,7 +6,7 @@ export default {
     version: packagejson.version,
   },
   api: {
-    baseUrl: "https://ecommerce101-api.onrender.com/api/v1",
-    // baseUrl: "http://localhost:3000/api/v1",
+    // baseUrl: "https://ecommerce101-api.onrender.com/api/v1",
+    baseUrl: "http://localhost:3000/api/v1",
   },
 };

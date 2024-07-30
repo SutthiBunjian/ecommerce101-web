@@ -4,6 +4,7 @@ import Sidebar from "../component/Sidebar";
 import CartSummary from "../pages/CartSummary";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import OrderHistory from "../pages/OrderHistory";
 import ProductDetails from "../pages/ProductDetails";
 import SignUp from "../pages/SignUp";
 
@@ -14,7 +15,7 @@ export const routes = [
   },
   {
     element: <SignUp />,
-    path: "/signup",
+    path: "/users/signup",
   },
   {
     element: (
@@ -48,5 +49,16 @@ export const routes = [
       </>
     ),
     path: "/product/:id",
+  },
+  {
+    element: (
+      <>
+        <Header />
+        <OrderHistory />
+        <Sidebar />
+        <Footer />
+      </>
+    ),
+    path: "/orderhistory",
   },
 ];

@@ -137,7 +137,7 @@ function Login() {
                 </label>
                 <a
                   href="#"
-                  onClick={() => navigate("/signup")}
+                  onClick={() => navigate("/users/signup")}
                   className="text-blue-600 hover:text-purple-400"
                 >
                   Sign up

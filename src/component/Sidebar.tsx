@@ -9,7 +9,6 @@ import { SidebarContext } from "../contexts/SidebarContext";
 import { CartContext } from "../contexts/CartContext";
 
 import { Order } from "../types/Order";
-import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import config from "../config";
 import OrderSummaryPopUp from "../component/OrderSummaryPopUp";
@@ -51,8 +50,14 @@ const Sidebar = () => {
       alert("The cart is empty");
     } else {
       if (isLoggedIn) {
+        const userInfo = localStorage.getItem("userInfo");
+        let userID = 0;
+        if (userInfo) {
+          const user = JSON.parse(userInfo);
+          userID = user.uid;
+        }
         const orderData: Order = {
-          orderid: uuidv4(),
+          uid: userID,
           ordernumber: generateOrderNumber(),
           products: cart.map((item) => ({
             id: item.id,

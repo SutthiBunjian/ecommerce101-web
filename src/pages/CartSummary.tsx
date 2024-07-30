@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { Order } from "../types/Order";
-import { v4 as uuidv4 } from "uuid";
+
 import OrderSummaryPopUp from "../component/OrderSummaryPopUp";
 import config from "../config";
 
@@ -44,8 +44,14 @@ const CartSummary = () => {
       alert("The cart is empty");
     } else {
       if (isLoggedIn) {
+        const userInfo = localStorage.getItem("userInfo");
+        let userID = 0;
+        if (userInfo) {
+          const user = JSON.parse(userInfo);
+          userID = user.uid;
+        }
         const orderData: Order = {
-          orderid: uuidv4(),
+          uid: userID,
           ordernumber: generateOrderNumber(),
           products: cart.map((item) => ({
             id: item.id,
@@ -118,7 +124,7 @@ const CartSummary = () => {
                 Log in
               </button>
               <button
-                onClick={() => navigate("/signup")}
+                onClick={() => navigate("/users/signup")}
                 className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transitio"
               >
                 Sign Up
