@@ -47,33 +47,36 @@ const Sidebar = () => {
 
   const handleSubmitOrder = () => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
-
-    if (isLoggedIn) {
-      const orderData: Order = {
-        orderid: uuidv4(),
-        ordernumber: generateOrderNumber(),
-        products: cart.map((item) => ({
-          id: item.id,
-          title: item.title,
-          price: item.price,
-          description: item.description,
-          category: item.category,
-          image: item.image,
-          rating: item.rating,
-          quantity: item.amount,
-        })),
-      };
-
-      sendData(orderData);
-      console.log(orderData);
-
-      submitCart(orderData.ordernumber);
-      localStorage.setItem("OrderInfo", JSON.stringify(orderData));
-      setOrderNumber(orderData.ordernumber);
-
-      setShowMyModal(true);
+    if (!cart.length) {
+      alert("The cart is empty");
     } else {
-      alert("Not Loggedin");
+      if (isLoggedIn) {
+        const orderData: Order = {
+          orderid: uuidv4(),
+          ordernumber: generateOrderNumber(),
+          products: cart.map((item) => ({
+            id: item.id,
+            title: item.title,
+            price: item.price,
+            description: item.description,
+            category: item.category,
+            image: item.image,
+            rating: item.rating,
+            quantity: item.amount,
+          })),
+        };
+
+        sendData(orderData);
+        console.log(orderData);
+
+        submitCart(orderData.ordernumber);
+        localStorage.setItem("OrderInfo", JSON.stringify(orderData));
+        setOrderNumber(orderData.ordernumber);
+
+        setShowMyModal(true);
+      } else {
+        alert("Not Loggedin");
+      }
     }
   };
   const generateOrderNumber = () => {

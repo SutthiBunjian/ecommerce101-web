@@ -1,37 +1,14 @@
-import OrderHome from "./pages/OrderHome";
-import Login from "./pages/Login";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Beverage from "./pages/Beverage";
-import Snack from "./pages/Snack";
-import Juice from "./pages/Juice";
-import SignUp from "./pages/SignUp";
-
-import Home from "./pages/Home";
-import ProductDetails from "./pages/ProductDetails";
-import Sidebar from "./component/Sidebar";
-import Header from "./component/Header";
-import Footer from "./component/Footer";
-import CartSummary from "./pages/CartSummary";
+import { routes } from "./routes";
 
 function App() {
   return (
     <BrowserRouter>
-      <Header />
-
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/home" element={<OrderHome />} />
-        <Route path="/beverage" element={<Beverage />} />
-        <Route path="/snack" element={<Snack />} />
-        <Route path="/juice" element={<Juice />} />
-        <Route path="/Cart" element={<CartSummary />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
+        {routes.map(({ path, element: Element }, index) => (
+          <Route key={index} path={path} element={Element} />
+        ))}
       </Routes>
-
-      <Sidebar />
-      <Footer />
     </BrowserRouter>
   );
 }

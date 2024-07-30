@@ -5,7 +5,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { CartContext } from "../contexts/CartContext";
 import { Link } from "react-router-dom";
 import Logo from "../img/logo.svg";
-import ProfilePopup from "./ProfileDropDown";
+import ProfileDropdown from "./ProfileDropDown";
 
 const Header: React.FC = () => {
   const [isActive, setIsActive] = useState(true);
@@ -73,7 +73,7 @@ const Header: React.FC = () => {
             >
               <AiOutlineUser className="text-3xl" />
             </button>
-            <ProfilePopup isVisible={dropdownVisible} />
+            <ProfileDropdown isVisible={dropdownVisible} />
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 {
-  "name": "line-menu",
+  "name": "ecommerce101-web",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "file-saver": "^2.0.5",
     "fs": "^0.0.1-security",

@@ -4,11 +4,11 @@ import { GoSignOut, GoHome } from "react-icons/go";
 import { RiShoppingCart2Line } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 
-interface ProfilePopupProps {
+interface ProfileDropdownProps {
   isVisible: boolean;
 }
 
-const ProfilePopup: React.FC<ProfilePopupProps> = ({ isVisible }) => {
+const ProfilePopup: React.FC<ProfileDropdownProps> = ({ isVisible }) => {
   const navigate = useNavigate();
 
   if (!isVisible) return null;
