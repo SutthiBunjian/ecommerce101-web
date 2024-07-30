@@ -17,13 +17,11 @@ const ProfilePopup: React.FC<ProfileDropdownProps> = ({ isVisible }) => {
   const userInfo = localStorage.getItem("userInfo");
 
   let firstname = "";
-  let userID = "";
 
   if (userInfo) {
     try {
       const parsedInfo = JSON.parse(userInfo);
       firstname = parsedInfo.firstName || "";
-      userID = parsedInfo.uid || "";
     } catch (error) {
       console.error("Error parsing user info:", error);
     }
