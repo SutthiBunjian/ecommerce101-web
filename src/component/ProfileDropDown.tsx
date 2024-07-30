@@ -38,8 +38,8 @@ const ProfilePopup: React.FC<ProfilePopupProps> = ({ isVisible }) => {
       aria-labelledby="user-menu-button"
     >
       {!isLoggedIn && (
-        <div>
-          <CgProfile />
+        <div className="flex flex-col justify-center items-center pt-4 text-gray-700 border-b">
+          <CgProfile className="text-4xl" />
           <div className="block text-center py-1 text-gray-700">
             Hello, Guest
           </div>
