@@ -71,13 +71,13 @@ const OrderHistory = () => {
                     <h4 className="font-semibold">
                       ${(product.price * product.quantity).toFixed(2)}
                     </h4>
-                    <p className="text-sm">
+                    <p className="text-xs ">
                       ${product.price} x {product.quantity}
                     </p>
                   </div>
                 </div>
               ))}
-              {/* Display the total amount */}
+
               <div className="border-t pt-2 mt-2 flex justify-between">
                 <h4 className="font-semibold">Total:</h4>
                 <p className="font-semibold">
