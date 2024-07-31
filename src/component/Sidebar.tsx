@@ -132,7 +132,7 @@ const Sidebar = () => {
         </Link>
         <Link
           onClick={handleSubmitOrder}
-          to="/cart"
+          to="/orderhistory"
           className="bg-gray-200 flex p-4 justify-center items-center w-full font-medium"
         >
           Checkout
